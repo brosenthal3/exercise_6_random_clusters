@@ -81,4 +81,24 @@ adata.obs[["louvain", "leiden"]].reset_index(names="cell_id").to_csv(
     index=False,
 )
 
-# Possibly need to also save HVG and PCA, unsure how omnibenchmark handles this...
+# save dummy data for required files
+hvg_list = pd.DataFrame({"gene": adata.var_names[:2000]})  # Dummy HVG list
+hvg_list.to_csv(
+    os.path.join(args.output_dir, f"{args.name}.hvgs.tsv"),
+    sep="\t",
+    index=False,
+    header=False,
+)
+
+# randomly generate PCA coordinates for demonstration purposes
+pca_df = pd.DataFrame(
+    rng.standard_normal((adata.n_obs, 50)),  # Assuming 50 PCs for demonstration
+    index=adata.obs_names,
+    columns=[f"PC{i + 1}" for i in range(50)],
+)
+pca_df.to_csv(
+    os.path.join(args.output_dir, f"{args.name}.pca.tsv"),
+    sep="\t",
+    index=True,
+    index_label="cell_id",
+)
