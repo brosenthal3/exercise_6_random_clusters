@@ -24,6 +24,7 @@ parser.add_argument(
     help="input true number of clusters path",
 )
 parser.add_argument("--seed", type=int, default=42, help="Random seed for reproducibility")
+parser.add_argument("--d_cluster", type=int, default=0, help="Additional clusters to add")
 
 args, _ = parser.parse_known_args()
 
